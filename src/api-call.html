@@ -1,0 +1,149 @@
+<script type="text/javascript">
+	RED.nodes.registerType('make', {
+		category: 'workflows',
+		color: '#ffffff',
+		defaults: {
+			name: { value: '' },
+			method: { value: 'GET' },
+			endpoint: { value: '', required: true },
+			payload: { value: 'ignore' },
+			connection: {
+				value: '',
+				type: 'imt-connection',
+				required: true,
+			},
+		},
+		inputs: 1,
+		outputs: 1,
+		align: 'left',
+		icon: 'icon.png',
+		label: function () {
+			return this.name || 'make';
+		},
+		oneditprepare: function () {
+			$('#node-input-method').typedInput({
+				types: [
+					{
+						options: [
+							{ value: 'GET', label: 'GET' },
+							{ value: 'POST', label: 'POST' },
+							{ value: 'PATCH', label: 'PATCH' },
+							{ value: 'PUT', label: 'PUT' },
+							{ value: 'DELETE', label: 'DELETE' },
+						],
+					},
+				],
+			});
+
+			$('#node-input-payload').typedInput({
+				types: [
+					{
+						options: [
+							{ value: 'ignore', label: 'Ignore' },
+							{ value: 'body', label: 'Send as request body' },
+							{
+								value: 'query',
+								label: 'Append as query parameters',
+							},
+						],
+					},
+				],
+			});
+		},
+	});
+</script>
+
+<script type="text/html" data-template-name="make">
+	<div class="form-row">
+		<label for="node-input-name">
+			<span>Name</span>
+		</label>
+		<input type="text" id="node-input-name" />
+	</div>
+	<div class="form-row">
+		<label for="node-input-connection">
+			<span>Connection</span>
+		</label>
+		<input type="text" id="node-input-connection" />
+	</div>
+
+	<div style="width: 95%; height: 10px; border-bottom: 1px solid lightgray; ">
+		<span
+			style="font-size: 12px; background-color: white; padding: 5px; margin-left: 10px;"
+		>
+			Request Options
+		</span>
+	</div>
+
+	<br />
+
+	<div class="form-row">
+		<label for="node-input-method">
+			<span>Method</span>
+		</label>
+		<input type="text" id="node-input-method" />
+	</div>
+
+	<div class="form-row">
+		<label for="node-input-endpoint">
+			<span>Endpoint</span>
+		</label>
+		<input type="text" id="node-input-endpoint" placeholder="/users/me" />
+	</div>
+
+	<div style="width: 95%; height: 10px; border-bottom: 1px solid lightgray; ">
+		<span
+			style="font-size: 12px; background-color: white; padding: 5px; margin-left: 10px;"
+		>
+			Advanced Options
+		</span>
+	</div>
+
+	<br />
+
+	<div class="form-row">
+		<label for="node-input-payload">
+			<span>Payload</span>
+		</label>
+		<input type="text" id="node-input-payload" />
+	</div>
+</script>
+
+<script type="text/javascript">
+	RED.nodes.registerType('imt-connection', {
+		category: 'config',
+		defaults: {
+			name: { value: '' },
+			baseUrl: { value: '' },
+		},
+		credentials: {
+			apiKey: { type: 'password' },
+		},
+		label: function () {
+			return this.name || 'Connection';
+		},
+	});
+</script>
+
+<script type="text/html" data-template-name="imt-connection">
+	<div class="form-row">
+		<label for="node-input-name">Name</label>
+		<input type="text" id="node-config-input-name" placeholder="Name" />
+	</div>
+	<div class="form-row">
+		<label for="node-config-input-apiKey">Token</label>
+		<input
+			type="password"
+			id="node-config-input-apiKey"
+			placeholder="Token"
+		/>
+	</div>
+	<div class="form-row">
+		<label for="node-config-input-baseUrl">Base URL</label>
+		<input
+			type="text"
+			id="node-config-input-baseUrl"
+			placeholder="https://"
+		/>
+	</div>
+</script>

@@ -1,0 +1,23 @@
+{
+	"name": "@virtus9/node-red-make",
+	"version": "1.0.0",
+	"description": "A node for communication with Make - integration and automation platform.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"node-red"
+	],
+	"author": "V1rtus9",
+	"license": "MIT",
+	"node-red": {
+		"version": ">=2.0.0",
+		"nodes": {
+			"api-call": "./src/api-call.js"
+		}
+	},
+	"dependencies": {
+		"mustache": "^4.2.0"
+	}
+}
